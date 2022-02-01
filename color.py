@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import  numpy as  np
 import cv2
 
-img = cv2.imread('F:\\GSQX\\TempRecord\\1953\\U528891953010102.JPG')
+img = cv2.imread('F:\\GSQX\\TempRecord\\1953\\jpg\\U528891953010102.JPG')
 
 
 

@@ -5,11 +5,14 @@ import cv2
 img = cv2.imread('F:\\GSQX\\TempRecord\\1953\\jpg\\U528891953020102.JPG')
 hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 #cv2.line(img, (144,217), (154,225), (0, 255, 0), 2)
-cv2.line(img, (154,225), (161,226), (0, 255, 0), 2)
+#a = np.array([(375, 193), (364, 113), (277, 20), (271, 16), (52, 106), (133, 266), (289, 296), (372, 282)])
+data_n = data.to_numpy()
+
+cv2.drawContours(img, data_n, 0, (255,255,255), 2)
 cv2.imshow('hor', img)
 cv2.waitKey()
 cv2.destroyAllWindows()
-
+#cv2.imwrite('F:\\GSQX\\TempRecord\\locstion_recognize.JPG', hsv)
 
 img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
@@ -66,35 +69,11 @@ img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         cv2.waitKey()
         cv2.destroyAllWindows()
 
-    def VertexDetect(self):
 
-        vertical_lines = self.VerticalLineDetect()
-        horizontal_lines = self.HorizontalLineDetect()
-
-        # 顶点列表
-        vertex = []
-        for v_line in vertical_lines:
-            for h_line in horizontal_lines:
-                vertex.append((v_line[0], h_line[1]))
-
-        # print(vertex)
-
-        # 绘制顶点
-        for point in vertex:
-            cv2.circle(self.image, point, 1, (255, 0, 0), 2)
-
-        return vertex
-
-    def CellDetect(self):
-        vertical_lines = self.VerticalLineDetect()
-        horizontal_lines = self.HorizontalLineDetect()
-
-        # 顶点列表
-        rects = []
-        for i in range(0, len(vertical_lines) - 1, 2):
-            for j in range(len(horizontal_lines) - 1):
-                rects.append((vertical_lines[i][0], horizontal_lines[j][1], \
-                              vertical_lines[i + 1][0], horizontal_lines[j + 1][1]))
-
-        # print(rects)
-        return rects
+for i  in range(0,len(data)-1):
+    point1 = (data.iloc[i,0], data.iloc[i,1])
+    point2 = (data.iloc[i+1,0], data.iloc[i+1,1])
+    cv2.line(img, (int(data.iloc[i,0]), int(data.iloc[i,1])), (int(data.iloc[i+1,0]),int(data.iloc[i+1,1])), [0, 255, 0], 2)
+cv2.imshow('hor', img)
+cv2.waitKey()
+cv2.destroyAllWindows()
